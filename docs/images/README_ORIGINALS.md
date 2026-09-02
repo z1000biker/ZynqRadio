@@ -1,1 +1,0 @@
-The validation images in this directory must be original screenshots captured during the author's successful tests. No reconstructed, illustrated, synthetic, or AI-generated validation imagery is acceptable.
