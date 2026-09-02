@@ -12,7 +12,7 @@
 
 > **Status:** v1.0.0 baseline validated with simultaneous FT8 transmit and receive, including successful self-reception decode in a full-duplex laboratory setup.
 
-![Successful FT8 self-decode](docs/images/ft8-self-decode.svg)
+> **Validation evidence policy:** only original screenshots captured from the actual ZynqRadio/WSJT-X test setup are acceptable as visual proof. Generated, reconstructed or illustrative screenshots are not used as evidence.
 
 ---
 
@@ -41,7 +41,7 @@ Zynq-7000 + AD936x
 RF
 ```
 
-A second WSJT-X instance was used as a self-receiver during development. The validation visual above shows successful decode of the transmitted `CQ SV1EEX KM17` frames. The 1296.174 MHz dial frequency shown in the demonstration was a development/self-test configuration, not a general band-plan recommendation.
+A second WSJT-X instance was used as a self-receiver during development. Successful decode of transmitted `CQ SV1EEX KM17` frames was observed while RX and TX were active simultaneously. The 1296.174 MHz dial frequency used in the development self-test is not a general band-plan recommendation.
 
 ### Why the I-only RX mode exists
 
@@ -69,7 +69,7 @@ The working solution uses an intentional **10 kHz RX LO offset** and transports 
 
 ### Control Center
 
-![ZynqRadio Control Center](docs/images/control-center.svg)
+The repository intentionally does not use a reconstructed or illustrative Control Center screenshot. Only an original capture from the running application should be used here.
 
 ### Recommended / proven configuration
 
@@ -130,10 +130,6 @@ The application loads `iio.dll` / `libiio.dll` dynamically. Install a Windows li
 - [Third-party components](THIRD_PARTY.md)
 - [Changelog](CHANGELOG.md)
 
-### Release model
-
-Tags matching `v*` trigger the included GitHub Actions release workflow. It builds a self-contained Windows x64 package and publishes it as a GitHub Release asset. libiio itself is intentionally not bundled; install it separately and observe its license.
-
 ### RF and regulatory notice
 
 This software can control an RF transmitter. Use it only on frequencies and power levels permitted by your licence and local regulations. Provide appropriate RF filtering, attenuation, isolation and switching. Software full duplex is **not** a substitute for receiver protection.
@@ -150,9 +146,13 @@ This software can control an RF transmitter. Use it only on frequencies and powe
 
 ### Αποδεδειγμένη λειτουργία
 
-Κατά την ανάπτυξη χρησιμοποιήθηκαν δύο instances του WSJT-X: το πρώτο για TX και το δεύτερο ως self-receiver. Η εικόνα στην κορυφή του README δείχνει κανονικό FT8 decode των πλαισίων `CQ SV1EEX KM17` ενώ RX και TX λειτουργούν ταυτόχρονα.
+Κατά την ανάπτυξη χρησιμοποιήθηκαν δύο instances του WSJT-X: το πρώτο για TX και το δεύτερο ως self-receiver. Παρατηρήθηκε κανονικό FT8 decode των πλαισίων `CQ SV1EEX KM17` ενώ RX και TX λειτουργούσαν ταυτόχρονα.
 
 Η συχνότητα 1296.174 MHz της επίδειξης ήταν ρύθμιση development/self-test και δεν αποτελεί γενική πρόταση band plan.
+
+### Πολιτική οπτικών αποδείξεων
+
+Στο repository επιτρέπονται ως validation evidence μόνο αυθεντικά screenshots από το πραγματικό ZynqRadio/WSJT-X test setup. Generated, reconstructed ή illustrative screenshots δεν χρησιμοποιούνται ως απόδειξη λειτουργίας.
 
 ### Το κρίσιμο full-duplex πρόβλημα και η λύση
 
