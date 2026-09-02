@@ -1,0 +1,1 @@
+Synthetic images are prohibited as validation evidence in this repository. Original screenshots only.
