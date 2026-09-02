@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release tag (for example v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish Windows x64
+        run: dotnet publish .\src\ZynqRadio\ZynqRadio.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -o .\artifacts\ZynqRadio-win-x64
+
+      - name: Add runtime notes and package
+        shell: pwsh
+        run: |
+          Copy-Item .\THIRD_PARTY.md .\artifacts\ZynqRadio-win-x64\THIRD_PARTY.md
+          Copy-Item .\docs\RECOMMENDED_SYSTEM.md .\artifacts\ZynqRadio-win-x64\RECOMMENDED_SYSTEM.md
+          Copy-Item .\RELEASE_NOTES_v1.0.0.md .\artifacts\ZynqRadio-win-x64\RELEASE_NOTES.md
+          Compress-Archive -Path .\artifacts\ZynqRadio-win-x64\* -DestinationPath ".\artifacts\ZynqRadio-$env:RELEASE_TAG-win-x64.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          name: ZynqRadio ${{ env.RELEASE_TAG }}
+          body_path: RELEASE_NOTES_v1.0.0.md
+          files: artifacts/ZynqRadio-${{ env.RELEASE_TAG }}-win-x64.zip
