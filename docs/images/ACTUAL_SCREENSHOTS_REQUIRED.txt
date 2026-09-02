@@ -1,1 +1,0 @@
-Temporary marker: the synthetic validation images are being removed and replaced with original screenshots from the author's successful test captures.
