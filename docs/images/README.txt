@@ -1,1 +1,0 @@
-Binary screenshots in this folder are original validation captures supplied by the project author. No synthetic or generated validation imagery is used.
