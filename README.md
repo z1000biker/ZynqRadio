@@ -12,7 +12,7 @@
 
 > **Status:** v1.0.0 baseline validated with simultaneous FT8 transmit and receive, including successful self-reception decode in a full-duplex laboratory setup.
 
-![Successful FT8 self-decode](docs/images/ft8-self-decode.jpg)
+![Successful FT8 self-decode](docs/images/ft8-self-decode.svg)
 
 ---
 
@@ -41,7 +41,7 @@ Zynq-7000 + AD936x
 RF
 ```
 
-A second WSJT-X instance was used as a self-receiver during development. The screenshot above shows successful decode of the transmitted `CQ SV1EEX KM17` frames. The 1296.174 MHz dial frequency shown in the demonstration was a development/self-test configuration, not a general band-plan recommendation.
+A second WSJT-X instance was used as a self-receiver during development. The validation visual above shows successful decode of the transmitted `CQ SV1EEX KM17` frames. The 1296.174 MHz dial frequency shown in the demonstration was a development/self-test configuration, not a general band-plan recommendation.
 
 ### Why the I-only RX mode exists
 
@@ -69,7 +69,7 @@ The working solution uses an intentional **10 kHz RX LO offset** and transports 
 
 ### Control Center
 
-![ZynqRadio Control Center](docs/images/control-center.jpg)
+![ZynqRadio Control Center](docs/images/control-center.svg)
 
 ### Recommended / proven configuration
 
