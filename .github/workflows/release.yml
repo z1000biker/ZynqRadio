@@ -1,15 +1,10 @@
-name: Release
+name: Release v1.0.0
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release tag (for example v1.0.0)'
-        required: true
-        default: 'v1.0.0'
   push:
-    tags:
-      - 'v*'
+    branches:
+      - 'release-v1.0.0'
 
 permissions:
   contents: write
@@ -17,31 +12,40 @@ permissions:
 jobs:
   release:
     runs-on: windows-latest
-    env:
-      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-dotnet@v4
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Publish Windows x64
-        run: dotnet publish .\src\ZynqRadio\ZynqRadio.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -o .\artifacts\ZynqRadio-win-x64
+      - name: Restore
+        run: dotnet restore .\src\ZynqRadio\ZynqRadio.csproj
 
-      - name: Add runtime notes and package
+      - name: Build
+        run: dotnet build .\src\ZynqRadio\ZynqRadio.csproj -c Release --no-restore
+
+      - name: Publish Windows x64
+        run: dotnet publish .\src\ZynqRadio\ZynqRadio.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false --no-restore -o .\artifacts\ZynqRadio-win-x64
+
+      - name: Package release
         shell: pwsh
         run: |
+          Copy-Item .\LICENSE .\artifacts\ZynqRadio-win-x64\LICENSE
           Copy-Item .\THIRD_PARTY.md .\artifacts\ZynqRadio-win-x64\THIRD_PARTY.md
           Copy-Item .\docs\RECOMMENDED_SYSTEM.md .\artifacts\ZynqRadio-win-x64\RECOMMENDED_SYSTEM.md
           Copy-Item .\RELEASE_NOTES_v1.0.0.md .\artifacts\ZynqRadio-win-x64\RELEASE_NOTES.md
-          Compress-Archive -Path .\artifacts\ZynqRadio-win-x64\* -DestinationPath ".\artifacts\ZynqRadio-$env:RELEASE_TAG-win-x64.zip"
+          Compress-Archive -Path .\artifacts\ZynqRadio-win-x64\* -DestinationPath .\artifacts\ZynqRadio-v1.0.0-win-x64.zip -Force
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release v1.0.0
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.RELEASE_TAG }}
+          tag_name: v1.0.0
           target_commitish: ${{ github.sha }}
-          name: ZynqRadio ${{ env.RELEASE_TAG }}
+          name: ZynqRadio v1.0.0
           body_path: RELEASE_NOTES_v1.0.0.md
-          files: artifacts/ZynqRadio-${{ env.RELEASE_TAG }}-win-x64.zip
+          files: artifacts/ZynqRadio-v1.0.0-win-x64.zip
+          draft: false
+          prerelease: false
