@@ -1,1 +1,0 @@
-Validation evidence policy: only original screenshots captured from the actual ZynqRadio/WSJT-X test setup may be used. Generated or reconstructed screenshots are not acceptable evidence.
