@@ -1,0 +1,23 @@
+# .NET / Visual Studio
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+artifacts/
+
+# Local runtime / diagnostics
+*.log
+*.wav
+*.zip
+logs/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# User-specific radio settings
+appsettings.local.json
