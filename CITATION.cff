@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: ZynqRadio
+message: "If you use ZynqRadio in technical work, please cite this repository."
+type: software
+authors:
+  - alias: SV1EEX
+    website: https://github.com/z1000biker
+version: 1.0.0
+date-released: 2026-09-02
+repository-code: https://github.com/z1000biker/ZynqRadio
+license: MIT

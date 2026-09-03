@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducible ZynqRadio problem
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: SDR / firmware
+      placeholder: Zynq-7010 + AD9363/AD9364, firmware details
+  - type: input
+    attributes:
+      label: IIO URI
+      placeholder: ip:pluto.local
+  - type: textarea
+    attributes:
+      label: Diagnostics
+      description: Paste the relevant Diagnostics & Logs excerpt.
+  - type: textarea
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
