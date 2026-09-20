@@ -1,0 +1,29 @@
+name: VDL2 FPGA CI
+
+on:
+  push:
+    branches:
+      - feature/vdl2-fpga
+    paths:
+      - "fpga/vdl2_frontend/**"
+      - ".github/workflows/vdl2-fpga-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  rtl-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: Compile RTL testbench
+        run: |
+          iverilog -g2012 -Wall \
+            -o /tmp/vdl2_frontend_tb \
+            fpga/vdl2_frontend/axis_vdl2_frontend.sv \
+            fpga/vdl2_frontend/tb_axis_vdl2_frontend.sv
+
+      - name: Run RTL testbench
+        run: vvp /tmp/vdl2_frontend_tb
